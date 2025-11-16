@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domini Gimnastyka</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <button class="burger-menu" onclick="toggleMenu(true)">☰</button>
+                <span>Domini Gimnastyka</span>
+            </div>
+            <ul class="nav-menu"></ul>
+        </nav>
+
+        <div class="lang-switcher">
+            <button class="lang-btn" data-lang="pl" title="Polski" onclick="setLanguage('pl')">PL</button>
+            <button class="lang-btn" data-lang="en" title="English" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="ua" title="Ukraine" onclick="setLanguage('ua')">UA</button>
+        </div>
+    </header>
+
+    <main id="content"></main>
+
+    <section id="sponsorship">
+        <label id="sponsorship-title"></label>
+        <ul class="sponsors">
+            <li><a class="sponsor" href="https://www.opolskie.pl/" target="_blank">
+                <img alt="Marszałek Województwa Opole" src="./images/marszalek-opole-dark.png">
+            </a></li>
+            <li><a class="sponsor" href="https://www.opole.pl/dla-mieszkanca" target="_blank">
+                <img alt="Miasto Opole" src="./images/logo-opole-dark.png">
+            </a></li>
+            <li><a class="sponsor" href="https://www.gov.pl/web/sport/" target="_blank">
+                <img alt="Ministerstwo sportu i turystyki" src="./images/logo-sport_and_turism.png">
+            </a></li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>COPYRIGHT 2025 &copy; Domini Gimnastyka</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
