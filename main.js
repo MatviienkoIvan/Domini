@@ -189,9 +189,9 @@ const mainEn = `<article>
     <div class="article-content">
         <div class="section-block main-block">
             <div class="section-text" id="main-text">
-                <h2>Domini Cup 2025: Experience Grace, Power & Unity in Opole!</h2>
+                <h2>Domini Cup 2026: Experience Grace, Power & Unity in Opole!</h2>
                 <p>Get Ready for an electrifying international Unforgettable Spectacle of Rhythmic Gymnastics!</p>
-                <p>Stowarzyszenie Klub Sportowy DOMINI invites you to the <b class="address">Stegu Arena, Opole, on February 7th-8th, 2025</b>, for the second edition of the Domini Cup. Witness young talents aged <b>3-18</b> from across the globe showcase breathtaking artistry, precision, and athleticism.</p>
+                <p>DOMINI invites you to <b class="address">Stegu Arena, Opole, on February 7th-8th, 2026</b>, for the second edition of the Domini Cup. Witness young talents aged <b>3-18</b> from across the globe showcase breathtaking artistry, precision, and athleticism.</p>
                 <p>More than just competition, the Domini Cup celebrates dedication, passion, and the unifying power of sport. Experience unforgettable performances and the vibrant atmosphere of international excellence.</p>
                 <p>With the proud patronage of the <i><b>President of Opole City</b></i>, the <i><b>Marshal of the Opole Voivodeship</b></i>, and the <i><b>Ministry of Sport and Tourism</b></i>, we uphold the highest standards, fostering character development through discipline and hard work.</p>
                 <p><b class="join-us">Join Us!</b> Don't miss this spectacular event!<p>
@@ -208,9 +208,9 @@ const mainPl = `<article>
     <div class="article-content">
         <div class="section-block main-block">
             <div class="section-text" id="main-text">
-                <h2>Domini Cup 2025: Doświadcz Gracji, Siły i Jedności w Opolu!</h2>
+                <h2>Domini Cup 2026: Doświadcz Gracji, Siły i Jedności w Opolu!</h2>
                 <p>Przygotujcie się na elektryzujący międzynarodowy turniej gimnastyki artystycznej!</p>
-                <p>Stowarzyszenie Klub Sportowy DOMINI zaprasza do <b class="address">Stegu Areny w Opolu, w dniach 7-8 lutego 2025 roku</b>, na drugą edycję Domini Cup. Bądźcie świadkami zapierających dech w piersiach popisów artyzmu, precyzji i atletyzmu młodych talentów w wieku <b>3-18</b> lat z całego świata</p>
+                <p>Stowarzyszenie Klub Sportowy DOMINI zaprasza do <b class="address">Stegu Areny w Opolu, w dniach 7-8 lutego 2026 roku</b>, na drugą edycję Domini Cup. Bądźcie świadkami zapierających dech w piersiach popisów artyzmu, precyzji i atletyzmu młodych talentów w wieku <b>3-18</b> lat z całego świata</p>
                 <p>Domini Cup to coś więcej niż tylko zawody, to celebracja poświęcenia, pasji i jednoczącej siły sportu. Doświadczcie niezapomnianych występów i tętniącej życiem atmosfery międzynarodowej doskonałości.</p>
                 <p>Dzięki dumnemu patronatowi <i><b>Prezydenta Miasta Opola</b></i>, <i><b>Marszałka Województwa Opolskiego</b></i> oraz <i><b>Ministerstwa Sportu i Turystyki</b></i>, utrzymujemy najwyższe standardy, wspierając rozwój charakteru poprzez dyscyplinę i ciężką pracę.</p>
                 <p><b class="join-us">Dołącz do Nas!</b> Nie przegap tego spektakularnego wydarzenia!<p>
@@ -227,9 +227,9 @@ const mainUkr = `<article>
     <div class="article-content">
         <div class="section-block main-block">
             <div class="section-text" id="main-text">
-                <h2>Кубок Доміні 2025: Відчуйте грацію, силу та єдність в Ополі!</h2>
+                <h2>Кубок Доміні 2026: Відчуйте грацію, силу та єдність в Ополі!</h2>
                 <p>Приготуйтеся до захопливого міжнародного турніру з художньої гімнастики!</p>
-                <p>Асоціація спортивних клубів DOMINI запрошує вас до <b class="address">Stegu Areny в місті Opole, 7-8 лютого 2025 року</b>, на другий Кубок Доміні. Станьте свідком захопливих проявів артистизму, точності та атлетизму юних талантів віком <b>3-18</b> років з усього світу</p>
+                <p>Асоціація спортивних клубів DOMINI запрошує вас до <b class="address">Stegu Areny в місті Opole, 7-8 лютого 2026 року</b>, на другий Кубок Доміні. Станьте свідком захопливих проявів артистизму, точності та атлетизму юних талантів віком <b>3-18</b> років з усього світу</p>
                 <p>Кубок Доміні - це більше, ніж просто змагання; це свято відданості, пристрасті та об'єднуючої сили спорту. Відчуйте незабутні виступи та яскраву атмосферу міжнародної досконалості.</p>
                 <p>Завдяки поважним патронатам <i><b>Prezydenta Miasta Opola</b></i>, <i><b>Marszałka Województwa Opolskiego</b></i> та <i><b>Ministerstwa Sportu i Turystyki</b></i>, ми підтримуємо найвищі стандарти, розвиток характеру через дисципліну та наполегливу працю.</p>
                 <p><b class="join-us">Приєднуйтесь до нас!</b> Не пропустіть цю вражаючу подію!<p>
@@ -249,11 +249,11 @@ const placePl = `<h1>Kontakt</h1><p>Skontaktuj się z nami pod adresem: kontakt@
 const galleryPl = `<h1><button id="overview-btn" class="overview-btn">Zobacz wszystkie zdjęcia</button></h1>
     <section class="gallery">
         <div id="gallery-carousel" class="carousel">
-            <button id="prev-btn">⟵</button>
+            <button id="prev-btn">&#8592;</button>
             <div id="thumbs-left" class="thumbs"></div>
             <img id="main-frame" class="main-frame"></img>
             <div id="thumbs-right" class="thumbs"></div>
-            <button id="next-btn">⟶</button>
+            <button id="next-btn">&#8594;</button>
         </div>
     </section>
 
@@ -267,11 +267,11 @@ const galleryPl = `<h1><button id="overview-btn" class="overview-btn">Zobacz wsz
 const galleryEn = `<h1 class="gallery-title"><button id="overview-btn" class="overview-btn">View all photos</button></h1>
     <section class="gallery">
         <div id="gallery-carousel" class="carousel">
-            <button id="prev-btn">⟵</button>
+            <button id="prev-btn">&#8592;</button>
             <div id="thumbs-left" class="thumbs"></div>
             <img id="main-frame" class="main-frame"></img>
             <div id="thumbs-right" class="thumbs"></div>
-            <button id="next-btn">⟶</button>
+            <button id="next-btn">&#8594;</button>
         </div>
     </section>
 
@@ -285,11 +285,11 @@ const galleryEn = `<h1 class="gallery-title"><button id="overview-btn" class="ov
 const galleryUa = `<h1 class="gallery-title"><button id="overview-btn" class="overview-btn">Переглянути всі фотографії</button></h1>
     <section class="gallery">
         <div id="gallery-carousel" class="carousel">
-            <button id="prev-btn">⟵</button>
+            <button id="prev-btn">&#8592;</button>
             <div id="thumbs-left" class="thumbs"></div>
             <img id="main-frame" class="main-frame"></img>
             <div id="thumbs-right" class="thumbs"></div>
-            <button id="next-btn">⟶</button>
+            <button id="next-btn">&#8594;</button>
         </div>
     </section>
 
