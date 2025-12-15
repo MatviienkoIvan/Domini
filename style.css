@@ -468,6 +468,10 @@ footer {
   .sponsors {
     gap: 5px;
   }
+  #next-btn,
+  #prev-btn {
+    padding: 0px 10px 10px 8px;
+  }
 }
 
 .overview-btn {
