@@ -10,6 +10,8 @@ const screenSize = {
     lg: 'lg',
 }
 
+let activeScreenSize;
+
 const siteNavs = {
     main: 'main',
     aboutUs: 'aboutUs',
@@ -66,11 +68,12 @@ const content = document.getElementById('content');
 const sponsorsTitle = document.getElementById('sponsorship-title');
 
 let burgerMenuOpened = false;
-
-const sheetId = '1HBPYyZ3nWezp0IAB2Yb8vlAwczczTTElsocJc3McYPo';
+// const sheetId = '1HBPYyZ3nWezp0IAB2Yb8vlAwczczTTElsocJc3McYPo';
+const sheetId = '1f-WUQnpPbY5jdKwUoQM_cJ_onBA3mBGKWwxxf9LzdIY';
 const sheetName = 'links';
 const sheetRange = 'A:A';
-const googleAPI = 'AIzaSyBsNFgDos0pdgmvAckiNiqvv74MR042aNw';
+// const googleAPI = 'AIzaSyBsNFgDos0pdgmvAckiNiqvv74MR042aNw';
+const googleAPI = 'AIzaSyBu5aGX7k00mM7tiX-ftEw7uFMLJUhhzi4';
 const gallerySheetUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!${sheetRange}?key=${googleAPI}`;
 
 // Initial data
@@ -244,8 +247,6 @@ const mainUkr = `<article>
 
 const groupsPl = `<h1 class="gallery-title">Grupy</h1><p>Lista dostępnych grup i ich opisy.</p>`;
 const documentsPl = `<h1>Dokumenty</h1><p>Pobierz potrzebne dokumenty tutaj.</p>`;
-const subscribePl = `<h1>Zapisz się!</h1><p>Formularz rejestracyjny lub informacje jak się zapisać.</p>`;
-const placePl = `<h1>Kontakt</h1><p>Skontaktuj się z nami pod adresem: kontakt@example.com</p>`;
 const galleryPl = `<h1><button id="overview-btn" class="overview-btn">Zobacz wszystkie zdjęcia</button></h1>
     <section class="gallery">
         <div id="gallery-carousel" class="carousel">
@@ -307,8 +308,7 @@ const pages = {
         [siteNavs.aboutUs]: aboutPl,
         [siteNavs.groups]: groupsPl,
         [siteNavs.documents]: documentsPl,
-        [siteNavs.register]: subscribePl,
-        [siteNavs.place]: placePl,
+        [siteNavs.place]: '',
         [siteNavs.gallery]: galleryPl
     },
     en: {
@@ -316,8 +316,7 @@ const pages = {
         [siteNavs.aboutUs]: aboutEn,
         [siteNavs.groups]: groupsPl,
         [siteNavs.documents]: documentsPl,
-        [siteNavs.register]: subscribePl,
-        [siteNavs.place]: placePl,
+        [siteNavs.place]: '',
         [siteNavs.gallery]: galleryEn
     },
     ua: {
@@ -325,8 +324,7 @@ const pages = {
         [siteNavs.aboutUs]: aboutUa,
         [siteNavs.groups]: groupsPl,
         [siteNavs.documents]: documentsPl,
-        [siteNavs.register]: subscribePl,
-        [siteNavs.place]: placePl,
+        [siteNavs.place]: '',
         [siteNavs.gallery]: galleryUa
     }
 };
@@ -366,7 +364,12 @@ function renderMenu() {
 // Load page content
 function loadPage(page) {
     updateActiveNav(page);
-    content.innerHTML = pages[currentLang][page] || `<h1>Page not found</h1>`;
+    if (page === siteNavs.place) {
+        content.innerHTML = getPlace();
+    } else {
+        content.innerHTML = pages[currentLang][page] || `<h1>Page not found</h1>`;
+    }
+    
 
     if (burgerMenuOpened) {
         toggleMenu(true);
@@ -377,25 +380,25 @@ function loadPage(page) {
         window.removeEventListener("resize", () => {});
         loadGallery();
         window.addEventListener("resize", (event) => {
-            const innerWidth = event.target.innerWidth;
+            const width = event.target.innerWidth;
             let newScreenSize;
             switch(true) {
-                case innerWidth < 480:
+                case width < 480:
                     newScreenSize = screenSize.xs;
                     break;
-                case innerWidth < 768:
+                case width < 768:
                     newScreenSize = screenSize.sm;
                     break;
-                case innerWidth < 1280:
+                case width < 1024:
                     newScreenSize = screenSize.md;
                     break;
-                case innerWidth >= 1280:
+                default:
                     newScreenSize = screenSize.lg;
                     break;
             }
 
             if (activeScreenSize !== newScreenSize) {
-                checkScreenSizeBeforeBuildCarousel(innerWidth);
+                checkScreenSizeBeforeBuildCarousel(width, false, true);
             }
         });
         
@@ -426,6 +429,7 @@ function updateActiveFlag() {
 // Set active language
 function setLanguage(lang) {
     localStorage.setItem(localStorageData.currentLanguage, languages[lang]);
+    currentLang = languages[lang]
     currentLang = languages[lang]
     updateActiveFlag();
     renderMenu();
@@ -481,7 +485,7 @@ async function loadGallery() {
 
         // Now galleryBuffer.list contains ALL unique images
         // from here you build the carousel + modal
-        checkScreenSizeBeforeBuildCarousel(window.innerWidth);
+        checkScreenSizeBeforeBuildCarousel(window.innerWidth, false, true);
         setupModal();
     } catch (err) {
         console.error("Error loading gallery:", err);
@@ -515,18 +519,30 @@ let carousel;
 let thumbsLeft;
 let thumbsRight;
 let mainFrame;
-function renderCarousel(imageSize) {
+let prevBtn;
+let nextBtn;
+function renderCarousel(imageSize, reRenderBtns) {
     if (!carousel) {
         carousel = document.getElementById("gallery-carousel");
         thumbsLeft = document.getElementById("thumbs-left");
         thumbsRight = document.getElementById("thumbs-right");
         mainFrame = document.getElementById("main-frame");
+        prevBtn = document.getElementById("prev-btn");
+        nextBtn = document.getElementById("next-btn");
+    }
+
+    if (reRenderBtns) {
+        if (prevBtn && nextBtn) {
+            prevBtn.removeEventListener('click', () => {})
+            nextBtn.removeEventListener('click', () => {})
+        }
+    
         // Prev / Next arrows
-        document.getElementById("prev-btn").addEventListener("click", () => {
+        prevBtn.addEventListener("click", () => {
             currentIndex = (currentIndex - 1 + total) % total;
             renderCarousel(imageSize);
         });
-        document.getElementById("next-btn").addEventListener("click", () => {
+        nextBtn.addEventListener("click", () => {
             currentIndex = (currentIndex + 1) % total;
             renderCarousel(imageSize);
         });
@@ -579,7 +595,7 @@ function setupModal() {
 
     // Infinite scroll loader
     let loadedCount = 0;
-    const BATCH = 20;
+    const BATCH = 200;
 
     function loadMore() {
         const slice = galleryBuffer.listOfLinks.slice(loadedCount, loadedCount + BATCH);
@@ -600,6 +616,7 @@ function setupModal() {
 
     function openModal() {
         modal.style.display = "flex";
+        modal.focus();
         grid.innerHTML = "";
         loadedCount = 0;
         loadMore();
@@ -610,35 +627,46 @@ function setupModal() {
     }
 
     closeBtn.addEventListener('click', () => closeModal());
-    document.getElementById("overview-btn").addEventListener('click', () => openModal());
+    modal.addEventListener('keydown', (e) => { if (e.code === 'Escape') closeModal(); });
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.getElementById("overview-btn").addEventListener('click', () => {
+        if (modal.style.display === 'none') openModal();
+    });
+    document.getElementById("overview-btn").addEventListener('keydown', (e) => {
+        if (modal.style.display === 'none' && (e.code === 'Enter' || e.code === 'Space')) openModal();
+    });
 
     // Infinite scroll listener
-    grid.addEventListener("scroll", () => {
-        if (grid.scrollTop + grid.clientHeight >= grid.scrollHeight - 50) {
-            loadMore();
-        }
-    });
+    // grid.addEventListener("scroll", () => {
+    //     if (grid.scrollTop + grid.clientHeight >= grid.scrollHeight - 50) {
+    //         loadMore();
+    //     }
+    // });
 }
 
-let activeScreenSize;
-function checkScreenSizeBeforeBuildCarousel(innerWidth) {
+function checkScreenSizeBeforeBuildCarousel(innerWidth, skipCarousel = false, reRenderBtns = false) {
+    let renderSize;
     switch(true) {
         case innerWidth < 480:
             activeScreenSize = screenSize.xs;
-            renderCarousel(200);
+            renderSize = 200;
             break;
         case innerWidth < 768:
             activeScreenSize = screenSize.sm;
-            renderCarousel(300);
+            renderSize = 300;
             break;
-        case innerWidth < 1280:
+        case innerWidth < 1024:
             activeScreenSize = screenSize.md;
-            renderCarousel(400);
+            renderSize = 400;
             break;
-        case innerWidth >= 1280:
+        default:
             activeScreenSize = screenSize.lg;
-            renderCarousel(600);
+            renderSize = 600;
             break;
+    }
+    
+    if (!skipCarousel) {
+        renderCarousel(renderSize, reRenderBtns);
     }
 }
 
@@ -653,7 +681,178 @@ document.addEventListener("click", function(event) {
 });
 
 // initial calls
-if (!pages[currentLang][currentPage]) {
+if (!pages[currentLang][currentPage] && !currentPage) {
     currentPage = navLabels[siteNavs.main];
 }
+checkScreenSizeBeforeBuildCarousel(window.innerWidth,true)
 setLanguage(currentLang);
+
+function getPlace() {
+    const width = activeScreenSize === screenSize.lg ? 400 : 300;
+    const height = activeScreenSize === screenSize.lg ? 300 : 200;
+    const en = `
+    <h1>Locations</h1>
+    <div class="locations">
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">City: <b>Opole</b></span>
+                <span class="locations__card__street">Street: <i>Ozimska 48a</i>, Lyceum 8</span>
+                <span class="locations__card__code">Post code: 45-368</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.8029706517345!2d17.93634360544745!3d50.6679186746847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471053ead276f5c5%3A0xe301241fc0df2020!2sSGA%20Domini%20Opole%20-%20Szko%C5%82a%20Gimnastyki%20Artystycznej!5e0!3m2!1sru!2spl!4v1768856789222!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">City: <b>Opole</b></span>
+                <span class="locations__card__street">Street: <i>Majora 'Hubala' 2</i>, School 25</span>
+                <span class="locations__card__code">Post code: 45-267</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.1245429950936!2d17.950608600000002!3d50.68051320000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471053bc5eead91d%3A0x851df7680a0bf2a9!2sPubliczna%20Szko%C5%82a%20Podstawowa%20nr%205%20z%20Oddzia%C5%82ami%20Integracyjnymi%20im%20Karola%20Musio%C5%82a!5e0!3m2!1sru!2spl!4v1768857808795!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">City: <b>Brzeg</b></span>
+                <span class="locations__card__street">Street: <i>Poprzeczna 1</i>, School 6</span>
+                <span class="locations__card__code">Post code: 49-304</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1497.7728600373505!2d17.462885486043394!3d50.85072760149036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47102fdf7e58ecd3%3A0x8340c54af71738d9!2sPubliczna%20Szko%C5%82a%20Podstawowa%20nr%206%20im.%20Tadeusza%20Ko%C5%9Bciuszki%20w%20Brzegu!5e0!3m2!1sru!2spl!4v1768857968612!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>`;
+    const pl = `
+    <h1>Lokalizacje</h1>
+    <div class="locations">
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">Miasto: <b>Opole</b></span>
+                <span class="locations__card__street">Ulica: <i>Ozimska 48a</i>, Liceum 8</span>
+                <span class="locations__card__code">Kod pocztowy: 45-368</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.8029706517345!2d17.93634360544745!3d50.6679186746847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471053ead276f5c5%3A0xe301241fc0df2020!2sSGA%20Domini%20Opole%20-%20Szko%C5%82a%20Gimnastyki%20Artystycznej!5e0!3m2!1sru!2spl!4v1768856789222!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">Miasto: <b>Opole</b></span>
+                <span class="locations__card__street">Ulica: <i>Majora 'Hubala' 2</i>, Szkoła 25</span>
+                <span class="locations__card__code">Kod pocztowy: 45-267</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.1245429950936!2d17.950608600000002!3d50.68051320000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471053bc5eead91d%3A0x851df7680a0bf2a9!2sPubliczna%20Szko%C5%82a%20Podstawowa%20nr%205%20z%20Oddzia%C5%82ami%20Integracyjnymi%20im%20Karola%20Musio%C5%82a!5e0!3m2!1sru!2spl!4v1768857808795!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">Miasto: <b>Brzeg</b></span>
+                <span class="locations__card__street">Ulica: <i>Poprzeczna 1</i>, Szkoła 6</span>
+                <span class="locations__card__code">Kod pocztowy: 49-304</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1497.7728600373505!2d17.462885486043394!3d50.85072760149036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47102fdf7e58ecd3%3A0x8340c54af71738d9!2sPubliczna%20Szko%C5%82a%20Podstawowa%20nr%206%20im.%20Tadeusza%20Ko%C5%9Bciuszki%20w%20Brzegu!5e0!3m2!1sru!2spl!4v1768857968612!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>`;
+    const ua = `
+    <h1>Локації</h1>
+    <div class="locations">
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">Місто: <b>Opole</b></span>
+                <span class="locations__card__street">Вулиця: <i>Ozimska 48a</i>, Ліцей №8</span>
+                <span class="locations__card__code">Поштовий індекс: 45-368</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.8029706517345!2d17.93634360544745!3d50.6679186746847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471053ead276f5c5%3A0xe301241fc0df2020!2sSGA%20Domini%20Opole%20-%20Szko%C5%82a%20Gimnastyki%20Artystycznej!5e0!3m2!1sru!2spl!4v1768856789222!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">Місто: <b>Opole</b></span>
+                <span class="locations__card__street">Вулиця: <i>Majora 'Hubala' 2</i>, Школа №25</span>
+                <span class="locations__card__code">Поштовий індекс: 45-267</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.1245429950936!2d17.950608600000002!3d50.68051320000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471053bc5eead91d%3A0x851df7680a0bf2a9!2sPubliczna%20Szko%C5%82a%20Podstawowa%20nr%205%20z%20Oddzia%C5%82ami%20Integracyjnymi%20im%20Karola%20Musio%C5%82a!5e0!3m2!1sru!2spl!4v1768857808795!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="locations__card">
+            <div class="locations__card__address">
+                <span class="locations__card__city">Місто: <b>Brzeg</b></span>
+                <span class="locations__card__street">Вулиця: <i>Poprzeczna 1</i>, Школа №6</span>
+                <span class="locations__card__code">Поштовий індекс: 49-304</span>
+            </div>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1497.7728600373505!2d17.462885486043394!3d50.85072760149036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47102fdf7e58ecd3%3A0x8340c54af71738d9!2sPubliczna%20Szko%C5%82a%20Podstawowa%20nr%206%20im.%20Tadeusza%20Ko%C5%9Bciuszki%20w%20Brzegu!5e0!3m2!1sru!2spl!4v1768857968612!5m2!1sru!2spl"
+                width="${width}"
+                height="${height}"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>`
+
+    switch (currentLang) {
+        case languages.pl:
+            return pl;
+        case languages.en:
+            return en;
+        case languages.ua:
+            return ua;
+    }
+}
