@@ -193,15 +193,15 @@ const mainEn = `<article>
         <div class="section-block main-block">
             <div class="section-text" id="main-text">
                 <h2>Domini Cup 2026: Experience Grace, Power & Unity in Opole!</h2>
+                <div class="section-image main-page-image">
+                    <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
+                </div>
                 <p>Get Ready for an electrifying international Unforgettable Spectacle of Rhythmic Gymnastics!</p>
                 <p>DOMINI invites you to <b class="address">Stegu Arena, Opole, on February 7th-8th, 2026</b>, for the second edition of the Domini Cup. Witness young talents aged <b>3-18</b> from across the globe showcase breathtaking artistry, precision, and athleticism.</p>
                 <p>More than just competition, the Domini Cup celebrates dedication, passion, and the unifying power of sport. Experience unforgettable performances and the vibrant atmosphere of international excellence.</p>
                 <p>With the proud patronage of the <i><b>President of Opole City</b></i>, the <i><b>Marshal of the Opole Voivodeship</b></i>, and the <i><b>Ministry of Sport and Tourism</b></i>, we uphold the highest standards, fostering character development through discipline and hard work.</p>
                 <p><b class="join-us">Join Us!</b> Don't miss this spectacular event!<p>
                 <p>We are waiting for you!</p>
-            </div>
-            <div class="section-image main-image">
-                <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
             </div>
         </div>
     </div>
@@ -212,15 +212,15 @@ const mainPl = `<article>
         <div class="section-block main-block">
             <div class="section-text" id="main-text">
                 <h2>Domini Cup 2026: Doświadcz Gracji, Siły i Jedności w Opolu!</h2>
+                <div class="section-image main-page-image">
+                    <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
+                </div>
                 <p>Przygotujcie się na elektryzujący międzynarodowy turniej gimnastyki artystycznej!</p>
                 <p>Stowarzyszenie Klub Sportowy DOMINI zaprasza do <b class="address">Stegu Areny w Opolu, w dniach 7-8 lutego 2026 roku</b>, na drugą edycję Domini Cup. Bądźcie świadkami zapierających dech w piersiach popisów artyzmu, precyzji i atletyzmu młodych talentów w wieku <b>3-18</b> lat z całego świata</p>
                 <p>Domini Cup to coś więcej niż tylko zawody, to celebracja poświęcenia, pasji i jednoczącej siły sportu. Doświadczcie niezapomnianych występów i tętniącej życiem atmosfery międzynarodowej doskonałości.</p>
                 <p>Dzięki dumnemu patronatowi <i><b>Prezydenta Miasta Opola</b></i>, <i><b>Marszałka Województwa Opolskiego</b></i> oraz <i><b>Ministerstwa Sportu i Turystyki</b></i>, utrzymujemy najwyższe standardy, wspierając rozwój charakteru poprzez dyscyplinę i ciężką pracę.</p>
                 <p><b class="join-us">Dołącz do Nas!</b> Nie przegap tego spektakularnego wydarzenia!<p>
                 <p>Czekamy na Ciebie!</p>
-            </div>
-            <div class="section-image main-image">
-                <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
             </div>
         </div>
     </div>
@@ -231,15 +231,15 @@ const mainUkr = `<article>
         <div class="section-block main-block">
             <div class="section-text" id="main-text">
                 <h2>Кубок Доміні 2026: Відчуйте грацію, силу та єдність в Ополі!</h2>
+                <div class="section-image main-page-image">
+                    <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
+                </div>
                 <p>Приготуйтеся до захопливого міжнародного турніру з художньої гімнастики!</p>
                 <p>Асоціація спортивних клубів DOMINI запрошує вас до <b class="address">Stegu Areny в місті Opole, 7-8 лютого 2026 року</b>, на другий Кубок Доміні. Станьте свідком захопливих проявів артистизму, точності та атлетизму юних талантів віком <b>3-18</b> років з усього світу</p>
                 <p>Кубок Доміні - це більше, ніж просто змагання; це свято відданості, пристрасті та об'єднуючої сили спорту. Відчуйте незабутні виступи та яскраву атмосферу міжнародної досконалості.</p>
                 <p>Завдяки поважним патронатам <i><b>Prezydenta Miasta Opola</b></i>, <i><b>Marszałka Województwa Opolskiego</b></i> та <i><b>Ministerstwa Sportu i Turystyki</b></i>, ми підтримуємо найвищі стандарти, розвиток характеру через дисципліну та наполегливу працю.</p>
                 <p><b class="join-us">Приєднуйтесь до нас!</b> Не пропустіть цю вражаючу подію!<p>
                 <p>Ми чекаємо на вас!</p>
-            </div>
-            <div class="section-image main-image">
-                <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
             </div>
         </div>
     </div>
