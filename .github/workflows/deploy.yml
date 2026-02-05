@@ -1,0 +1,28 @@
+name: Domini to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main   # or master
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Replace placeholders in JS
+        run: |
+          sed -i "s|__SHEET_ID__|${{ secrets.SHEET_ID }}|g" main.js
+          sed -i "s|__GOOGLE_API_KEY__|${{ secrets.GOOGLE_API_KEY }}|g" main.js
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
