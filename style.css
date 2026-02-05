@@ -419,7 +419,6 @@ footer .social-links {
     transform: scale(1.1);
 }
 
-.documents__card__save-btn,
 .overview-btn {
   background: linear-gradient(135deg, #8752aa, #9937f5);
   color: var(--h-text-color);
