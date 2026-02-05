@@ -69,11 +69,10 @@ const sponsorsTitle = document.getElementById('sponsorship-title');
 
 let burgerMenuOpened = false;
 // const sheetId = '1HBPYyZ3nWezp0IAB2Yb8vlAwczczTTElsocJc3McYPo';
-const sheetId = '1f-WUQnpPbY5jdKwUoQM_cJ_onBA3mBGKWwxxf9LzdIY';
+const sheetId = '__SHEET_ID__';
 const sheetName = 'links';
 const sheetRange = 'A:A';
-// const googleAPI = 'AIzaSyBsNFgDos0pdgmvAckiNiqvv74MR042aNw';
-const googleAPI = 'AIzaSyBu5aGX7k00mM7tiX-ftEw7uFMLJUhhzi4';
+const googleAPI = '__GOOGLE_API_KEY__';
 const gallerySheetUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!${sheetRange}?key=${googleAPI}`;
 
 // Initial data
@@ -86,7 +85,7 @@ const aboutPl = `<article>
     <div class="article-content">
         <div class="section-block">
             <div class="section-image">
-                <img src="./images/domini-cup.jpg" alt="Zawody Domini Cup">
+                <img src="./images/general/domini-cup.jpg" alt="Zawody Domini Cup">
             </div>
             <div class="section-text">
                 <h2>Domini Cup</h2>
@@ -96,7 +95,7 @@ const aboutPl = `<article>
 
         <div class="section-block reverse">
             <div class="section-image">
-                <img src="./images/nasza-misja.jpg" alt="Trening gimnastyczny">
+                <img src="./images/general/nasza-misja.jpg" alt="Trening gimnastyczny">
             </div>
             <div class="section-text">
                 <h2>Nasza Misja</h2>
@@ -106,7 +105,7 @@ const aboutPl = `<article>
 
         <div class="section-block">
             <div class="section-image">
-                <img src="./images/nasz-zespol.jpg" alt="Trenerzy i drużyna">
+                <img src="./images/general/nasz-zespol.jpg" alt="Trenerzy i drużyna">
             </div>
             <div class="section-text">
                 <h2>Nasz Zespół</h2>
@@ -120,7 +119,7 @@ const aboutEn = `<article>
     <div class="article-content">
         <div class="section-block">
             <div class="section-image">
-                <img src="./images/domini-cup.jpg" alt="Zawody Domini Cup">
+                <img src="./images/general/domini-cup.jpg" alt="Zawody Domini Cup">
             </div>
             <div class="section-text">
                 <h2>Domini Cup</h2>
@@ -131,7 +130,7 @@ const aboutEn = `<article>
 
         <div class="section-block reverse">
             <div class="section-image">
-                <img src="./images/nasza-misja.jpg" alt="Trening gimnastyczny">
+                <img src="./images/general/nasza-misja.jpg" alt="Trening gimnastyczny">
             </div>
             <div class="section-text">
                 <h2>Our Mission</h2>
@@ -142,7 +141,7 @@ const aboutEn = `<article>
 
         <div class="section-block">
             <div class="section-image">
-                <img src="./images/nasz-zespol.jpg" alt="Trenerzy i drużyna">
+                <img src="./images/general/nasz-zespol.jpg" alt="Trenerzy i drużyna">
             </div>
             <div class="section-text">
                 <h2>International Reach</h2>
@@ -156,7 +155,7 @@ const aboutUa = `<article>
     <div class="article-content">
         <div class="section-block">
             <div class="section-image">
-                <img src="./images/domini-cup.jpg" alt="Zawody Domini Cup">
+                <img src="./images/general/domini-cup.jpg" alt="Zawody Domini Cup">
             </div>
             <div class="section-text">
                 <h2>Domini Cup</h2>
@@ -166,7 +165,7 @@ const aboutUa = `<article>
 
         <div class="section-block reverse">
             <div class="section-image">
-                <img src="./images/nasza-misja.jpg" alt="Trening gimnastyczny">
+                <img src="./images/general/nasza-misja.jpg" alt="Trening gimnastyczny">
             </div>
             <div class="section-text">
                 <h2>Наша місія</h2>
@@ -176,7 +175,7 @@ const aboutUa = `<article>
 
         <div class="section-block">
             <div class="section-image">
-                <img src="./images/nasz-zespol.jpg" alt="Trenerzy i drużyna">
+                <img src="./images/general/nasz-zespol.jpg" alt="Trenerzy i drużyna">
             </div>
             <div class="section-text">
                 <h2>Міжнародний масштаб</h2>
@@ -194,7 +193,7 @@ const mainEn = `<article>
             <div class="section-text" id="main-text">
                 <h2>Domini Cup 2026: Experience Grace, Power & Unity in Opole!</h2>
                 <div class="section-image main-page-image">
-                    <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
+                    <img src="./images/general/logo-gimnastyka.png" alt="Domini Cup Logo">
                 </div>
                 <p>Get Ready for an electrifying international Unforgettable Spectacle of Rhythmic Gymnastics!</p>
                 <p>DOMINI invites you to <b class="address">Stegu Arena, Opole, on February 7th-8th, 2026</b>, for the second edition of the Domini Cup. Witness young talents aged <b>3-18</b> from across the globe showcase breathtaking artistry, precision, and athleticism.</p>
@@ -213,7 +212,7 @@ const mainPl = `<article>
             <div class="section-text" id="main-text">
                 <h2>Domini Cup 2026: Doświadcz Gracji, Siły i Jedności w Opolu!</h2>
                 <div class="section-image main-page-image">
-                    <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
+                    <img src="./images/general/logo-gimnastyka.png" alt="Domini Cup Logo">
                 </div>
                 <p>Przygotujcie się na elektryzujący międzynarodowy turniej gimnastyki artystycznej!</p>
                 <p>Stowarzyszenie Klub Sportowy DOMINI zaprasza do <b class="address">Stegu Areny w Opolu, w dniach 7-8 lutego 2026 roku</b>, na drugą edycję Domini Cup. Bądźcie świadkami zapierających dech w piersiach popisów artyzmu, precyzji i atletyzmu młodych talentów w wieku <b>3-18</b> lat z całego świata</p>
@@ -232,7 +231,7 @@ const mainUkr = `<article>
             <div class="section-text" id="main-text">
                 <h2>Кубок Доміні 2026: Відчуйте грацію, силу та єдність в Ополі!</h2>
                 <div class="section-image main-page-image">
-                    <img src="./images/logo-gimnastyka.png" alt="Domini Cup Logo">
+                    <img src="./images/general/logo-gimnastyka.png" alt="Domini Cup Logo">
                 </div>
                 <p>Приготуйтеся до захопливого міжнародного турніру з художньої гімнастики!</p>
                 <p>Асоціація спортивних клубів DOMINI запрошує вас до <b class="address">Stegu Areny в місті Opole, 7-8 лютого 2026 року</b>, на другий Кубок Доміні. Станьте свідком захопливих проявів артистизму, точності та атлетизму юних талантів віком <b>3-18</b> років з усього світу</p>
@@ -246,7 +245,6 @@ const mainUkr = `<article>
 </article>`;
 
 const groupsPl = `<h1 class="gallery-title">Grupy</h1><p>Lista dostępnych grup i ich opisy.</p>`;
-const documentsPl = `<h1>Dokumenty</h1><p>Pobierz potrzebne dokumenty tutaj.</p>`;
 const galleryPl = `<h1><button id="overview-btn" class="overview-btn">Zobacz wszystkie zdjęcia</button></h1>
     <section class="gallery">
         <div id="gallery-carousel" class="carousel">
@@ -307,7 +305,7 @@ const pages = {
         [siteNavs.main]: mainPl,
         [siteNavs.aboutUs]: aboutPl,
         [siteNavs.groups]: groupsPl,
-        [siteNavs.documents]: documentsPl,
+        [siteNavs.documents]: '',
         [siteNavs.place]: '',
         [siteNavs.gallery]: galleryPl
     },
@@ -315,7 +313,7 @@ const pages = {
         [siteNavs.main]: mainEn,
         [siteNavs.aboutUs]: aboutEn,
         [siteNavs.groups]: groupsPl,
-        [siteNavs.documents]: documentsPl,
+        [siteNavs.documents]: '',
         [siteNavs.place]: '',
         [siteNavs.gallery]: galleryEn
     },
@@ -323,7 +321,7 @@ const pages = {
         [siteNavs.main]: mainUkr,
         [siteNavs.aboutUs]: aboutUa,
         [siteNavs.groups]: groupsPl,
-        [siteNavs.documents]: documentsPl,
+        [siteNavs.documents]: '',
         [siteNavs.place]: '',
         [siteNavs.gallery]: galleryUa
     }
@@ -366,10 +364,11 @@ function loadPage(page) {
     updateActiveNav(page);
     if (page === siteNavs.place) {
         content.innerHTML = getPlace();
+    } else if (page === siteNavs.documents) {
+        content.innerHTML = getDocuments();
     } else {
         content.innerHTML = pages[currentLang][page] || `<h1>Page not found</h1>`;
     }
-    
 
     if (burgerMenuOpened) {
         toggleMenu(true);
@@ -383,13 +382,13 @@ function loadPage(page) {
             const width = event.target.innerWidth;
             let newScreenSize;
             switch(true) {
-                case width < 480:
+                case width <= 480:
                     newScreenSize = screenSize.xs;
                     break;
-                case width < 768:
+                case width <= 768:
                     newScreenSize = screenSize.sm;
                     break;
-                case width < 1024:
+                case width <= 1024:
                     newScreenSize = screenSize.md;
                     break;
                 default:
@@ -647,15 +646,15 @@ function setupModal() {
 function checkScreenSizeBeforeBuildCarousel(innerWidth, skipCarousel = false, reRenderBtns = false) {
     let renderSize;
     switch(true) {
-        case innerWidth < 480:
+        case innerWidth <= 480:
             activeScreenSize = screenSize.xs;
             renderSize = 200;
             break;
-        case innerWidth < 768:
+        case innerWidth <= 768:
             activeScreenSize = screenSize.sm;
             renderSize = 300;
             break;
-        case innerWidth < 1024:
+        case innerWidth <= 1024:
             activeScreenSize = screenSize.md;
             renderSize = 400;
             break;
@@ -776,6 +775,7 @@ function getPlace() {
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
+            </iframe>
         </div>
         <div class="locations__card">
             <div class="locations__card__address">
@@ -846,6 +846,24 @@ function getPlace() {
             </iframe>
         </div>
     </div>`
+
+    switch (currentLang) {
+        case languages.pl:
+            return pl;
+        case languages.en:
+            return en;
+        case languages.ua:
+            return ua;
+    }
+}
+
+function getDocuments() {
+    const width = activeScreenSize === screenSize.xs ? 300 : 500;
+    const height = activeScreenSize === screenSize.xs ? 500 : 370;
+
+    const en = `<h1>Documents</h1><div class="documents"><div class="documents__card"><h2 class="documents__card__title">Domini competition rules</h2><embed src="./documents/regulamin_pl.pdf" width="${width}px" height="${height}vh"/></div>`;
+    const pl = `<h1>Dokumenty</h1><div class="documents"><div class="documents__card"><h2 class="documents__card__title">Domini regulamin startu w zawodach</h2><embed src="./documents/regulamin_pl.pdf" width="${width}px" height="${height}vh"/></div></div>`;
+    const ua = `<h1>Документи</h1><div class="documents"><div class="documents__card"><h2 class="documents__card__title">Правила змагань клубу Domini</h2><embed src="./documents/regulamin_pl.pdf" width="${width}px" height="${height}vh"/></div></div>`;
 
     switch (currentLang) {
         case languages.pl:
