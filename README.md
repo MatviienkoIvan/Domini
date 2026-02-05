@@ -1,1 +1,1 @@
-Here's implementation landing for Domini club Opole
+Here's implementation landing for Domini club Opole!
