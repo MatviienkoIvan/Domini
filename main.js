@@ -68,7 +68,7 @@ const content = document.getElementById('content');
 const sponsorsTitle = document.getElementById('sponsorship-title');
 
 let burgerMenuOpened = false;
-const sheetId = '1HBPYyZ3nWezp0IAB2Yb8vlAwczczTTElsocJc3McYPo';
+const sheetId = '1f-WUQnpPbY5jdKwUoQM_cJ_onBA3mBGKWwxxf9LzdIY';
 const sheetName = 'links';
 const sheetRange = 'A:A';
 const googleAPI = 'AIzaSyBu5aGX7k00mM7tiX-ftEw7uFMLJUhhzi4';
