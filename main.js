@@ -330,7 +330,7 @@ const pages = {
 function renderMenu() {
     // Remove existing listeners
     getNavItems().forEach(item => {
-        item.removeEventListener('click', undefined);
+        item.removeEventListener('click', item._navClickHandler);
     });
 
     // Render new menu items
@@ -348,12 +348,18 @@ function renderMenu() {
     // Reattach nav eventsListeners after rendering
     getNavItems().forEach(link => {
         if (link.getAttribute('data-page') !== siteNavs.register) {
-            link.addEventListener('click', e => {
+             // create handler
+            const handler = (e) => {
                 e.preventDefault();
                 currentPage = link.getAttribute('data-page');
                 loadPage(currentPage);
-                localStorage.setItem(localStorageData.currentPage, currentPage);``
-            });
+                localStorage.setItem(localStorageData.currentPage, currentPage);
+            };
+
+            // store reference on the element
+            link._navClickHandler = handler;
+
+            link.addEventListener('click', handler);
         }
     });
 }
@@ -375,9 +381,10 @@ function loadPage(page) {
 
     if (page === siteNavs.gallery) {
         // to clean existing listenear and avoid multiple subscriptions
-        window.removeEventListener("resize", () => {});
+        window.removeEventListener("resize", window._resizeHandler);
         loadGallery();
-        window.addEventListener("resize", (event) => {
+
+        const resizeHandler = (e) => {
             const width = event.target.innerWidth;
             let newScreenSize;
             switch(true) {
@@ -398,7 +405,12 @@ function loadPage(page) {
             if (activeScreenSize !== newScreenSize) {
                 checkScreenSizeBeforeBuildCarousel(width, false, true);
             }
-        });
+        };
+
+        // store reference on the element
+        window._resizeHandler = resizeHandler;
+
+        window.addEventListener("resize", resizeHandler);
         
     }
 
@@ -531,19 +543,27 @@ function renderCarousel(imageSize, reRenderBtns) {
 
     if (reRenderBtns) {
         if (prevBtn && nextBtn) {
-            prevBtn.removeEventListener('click', () => {})
-            nextBtn.removeEventListener('click', () => {})
+            prevBtn.removeEventListener('click', prevBtn._clickHandler)
+            nextBtn.removeEventListener('click', nextBtn._clickHandler)
         }
     
         // Prev / Next arrows
-        prevBtn.addEventListener("click", () => {
+         const prevBtnHandler = (e) => {
+            e.preventDefault();
             currentIndex = (currentIndex - 1 + total) % total;
             renderCarousel(imageSize);
-        });
-        nextBtn.addEventListener("click", () => {
+        };
+         const nextBtnHandler = (e) => {
+            e.preventDefault();
             currentIndex = (currentIndex + 1) % total;
             renderCarousel(imageSize);
-        });
+        };
+
+        // store reference on the element
+        prevBtn._clickHandler = prevBtnHandler;
+        nextBtn._clickHandler = prevBtnHandler;
+        prevBtn.addEventListener("click", prevBtnHandler);
+        nextBtn.addEventListener("click", nextBtnHandler);
     }
     
     const listOfLinks = galleryBuffer.listOfLinks;
@@ -562,7 +582,7 @@ function renderCarousel(imageSize, reRenderBtns) {
     ];
 
     carousel.querySelectorAll(".thumb").forEach(el => {
-        el.removeEventListener("click", () => {});
+        el.removeEventListener("click", el._clickHandler);
     });
 
     // Render thumbs
@@ -576,10 +596,14 @@ function renderCarousel(imageSize, reRenderBtns) {
 
    // Setup click listeners
     carousel.querySelectorAll(".thumb").forEach(el => {
-        el.addEventListener("click", () => {
+        const carouselClickHandler = (e) => {
+            e.preventDefault;
             currentIndex = parseInt(el.dataset.index);
             renderCarousel(imageSize);
-        });
+
+        }
+        el._clickHandler = carouselClickHandler
+        el.addEventListener("click", carouselClickHandler);
     });
 
     // Render main image in iframe
@@ -591,7 +615,7 @@ function setupModal() {
     const grid = document.getElementById("modal-grid");
     const closeBtn = document.getElementById("modal-close");
 
-    // Infinite scroll loader
+    // TODO Infinite scroll loader
     let loadedCount = 0;
     const BATCH = 200;
 
@@ -618,19 +642,37 @@ function setupModal() {
         grid.innerHTML = "";
         loadedCount = 0;
         loadMore();
+
+        const closeHandler = (e) => {
+            e.preventDefault;
+            closeModal();
+        }
+        closeBtn._clickHandler = closeHandler;
+        closeBtn.addEventListener('click', closeHandler);
+
+        const modalCloseHandler = (e) => {
+            e.preventDefault;
+            if (e.code === 'Escape' || e.target === modal) closeModal();
+        }
+        modal._closeHandler = modalCloseHandler;
+        modal.addEventListener('keydown', modalCloseHandler);
+        modal.addEventListener('click', modalCloseHandler);
     }
 
     function closeModal() {
         modal.style.display = "none";
+        
+        closeBtn.removeEventListener('click', closeBtn._clickHandler);
+        modal.removeEventListener('keydown', modal._closeHandler);
+        modal.removeEventListener('click', modal._closeHandler);
     }
 
-    closeBtn.addEventListener('click', () => closeModal());
-    modal.addEventListener('keydown', (e) => { if (e.code === 'Escape') closeModal(); });
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.getElementById("overview-btn").addEventListener('click', () => {
+    
+    const overviewBtn = document.getElementById("overview-btn");
+    overviewBtn.addEventListener('click', () => {
         if (modal.style.display === 'none') openModal();
     });
-    document.getElementById("overview-btn").addEventListener('keydown', (e) => {
+    overviewBtn.addEventListener('keydown', (e) => {
         if (modal.style.display === 'none' && (e.code === 'Enter' || e.code === 'Space')) openModal();
     });
 
