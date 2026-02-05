@@ -629,7 +629,7 @@ section.gallery {
 }
 
 
-@media (max-width: 320px) {
+@media (max-width: 480px) {
     header {
         gap: 1px;
         margin-left: 3px;
