@@ -68,7 +68,6 @@ const content = document.getElementById('content');
 const sponsorsTitle = document.getElementById('sponsorship-title');
 
 let burgerMenuOpened = false;
-// const sheetId = '1HBPYyZ3nWezp0IAB2Yb8vlAwczczTTElsocJc3McYPo';
 const sheetId = '__SHEET_ID__';
 const sheetName = 'links';
 const sheetRange = 'A:A';
